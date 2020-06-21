@@ -28,8 +28,12 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = (TextView) findViewById(R.id.textView);
         tv.setMovementMethod(new ScrollingMovementMethod());
 
+        String path;
+        path = getFilesDir() + File.separator + "RunShell";
+
         // Cria os diretorios avr e packages
-        RunCommand("mkdir "+getCacheDir()+ File.separator + "arduino");
+        RunCommand("mkdir "+ path);
+        RunCommand("mkdir "+ path + File.separator + "arduino");
 
         /**
          * Arquivos que sao extraidos
@@ -41,21 +45,21 @@ public class MainActivity extends AppCompatActivity {
          *      arduino/avr.tar.gz - Pacote AVR
          *      arduino/libraries.tar.gz - Pacotes Arduino
          **/
-        if(!directoryExists(getCacheDir() + File.separator + "arduino" + File.separator + "avr")) {
+        if(!directoryExists(path + File.separator + "arduino" + File.separator + "avr")) {
 
             // arduino/arduino.mk
-            if (!fileExists(getCacheDir() + File.separator + "arduino"  + File.separator + "arduino.mk")) {
+            if (!fileExists(path + File.separator + "arduino"  + File.separator + "arduino.mk")) {
 
-                diretorio = getCacheDir() + File.separator + "arduino" + File.separator + "arduino.mk";
+                diretorio = path + File.separator + "arduino" + File.separator + "arduino.mk";
                 arquivo = getResources().openRawResource(R.raw.arduino);
                 copiaArquivo(diretorio, arquivo);
 
             }
 
             // arduino/busybox
-            if (!fileExists(getCacheDir() + File.separator + "arduino"  + File.separator + "busybox")) {
+            if (!fileExists(path + File.separator + "arduino"  + File.separator + "busybox")) {
 
-                diretorio = getCacheDir() + File.separator + "arduino" + File.separator + "busybox";
+                diretorio = path + File.separator + "arduino" + File.separator + "busybox";
                 arquivo = getResources().openRawResource(R.raw.busybox);
                 copiaArquivo(diretorio, arquivo);
 
@@ -63,47 +67,47 @@ public class MainActivity extends AppCompatActivity {
 
 
             // arduino/avr.tar.gz
-            if (!fileExists(getCacheDir() + File.separator + "arduino" + File.separator + "avr.tar.gz")) {
+            if (!fileExists(path + File.separator + "arduino" + File.separator + "avr.tar.gz")) {
 
-                diretorio = getCacheDir() + File.separator + "arduino" + File.separator + "avr.tar.gz";
+                diretorio = path + File.separator + "arduino" + File.separator + "avr.tar.gz";
                 arquivo = getResources().openRawResource(R.raw.avr);
                 copiaArquivo(diretorio, arquivo);
 
             }
 
             // arduino/libraries.tar.gz
-            if (!fileExists(getCacheDir() + File.separator + "arduino" + File.separator + "libraries.tar.gz")) {
+            if (!fileExists(path + File.separator + "arduino" + File.separator + "libraries.tar.gz")) {
 
-                diretorio = getCacheDir() + File.separator + "arduino" + File.separator + "libraries.tar.gz";
+                diretorio = path + File.separator + "arduino" + File.separator + "libraries.tar.gz";
                 arquivo = getResources().openRawResource(R.raw.libraries);
                 copiaArquivo(diretorio, arquivo);
 
             }
 
             // install.sh
-            diretorio = getCacheDir() + File.separator + "install.sh";
+            diretorio = path + File.separator + "install.sh";
             arquivo = getResources().openRawResource(R.raw.install);
             copiaArquivo(diretorio, arquivo);
 
             //Torna o install.sh executavel e o executa
             RunCommand("chmod 775 " + diretorio);
-            resultado = RunCommand("sh " + diretorio + " " + getCacheDir());
+            resultado = RunCommand("sh " + diretorio + " " + path);
 
             tv.setText(resultado);
 
         }
 
         // Se ja extraiu os arquivos
-        if(directoryExists(getCacheDir() + File.separator + "arduino" + File.separator + "avr")){
+        if(directoryExists(path + File.separator + "arduino" + File.separator + "avr")){
 
             // run.sh
-            diretorio = getCacheDir() + File.separator + "run.sh";
+            diretorio = path + File.separator + "run.sh";
             arquivo = getResources().openRawResource(R.raw.run);
             copiaArquivo(diretorio, arquivo);
 
             //Torna o run.sh executavel e o executa
             RunCommand("chmod 775 " + diretorio);
-            resultado = RunCommand("sh " + diretorio + " " + getCacheDir() + " " + Environment.getExternalStorageDirectory());
+            resultado = RunCommand("sh " + diretorio + " " + path + " " + Environment.getExternalStorageDirectory());
 
             tv.setText(resultado);
 

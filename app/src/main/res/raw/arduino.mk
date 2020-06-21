@@ -137,11 +137,6 @@
 #              from those that that would be built for the project.
 #_______________________________________________________________________________
 #
-SHELL:=/system/bin/sh
-ARDUINODIR:=/data/user/0/com.example.runshell/cache/arduino
-AVRTOOLSPATH:=/data/user/0/com.example.runshell/cache/arduino/avr/bin
-SERIALDEV:=/dev/ttyUSB0
-TARGET:=/data/user/0/com.example.runshell/cache/arduino/Blink/Blink.ino
 
 # default arduino software directory, check software exists
 ifndef ARDUINODIR
