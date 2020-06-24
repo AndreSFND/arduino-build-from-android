@@ -1,9 +1,6 @@
 export PATH=$1/arduino/avr/bin:$PATH;
 cd $1/arduino;
 
-# $1 = cache/RunShell
-# $2 = externalStorage
-
 mkdir Blink;
 
 mv arduino.mk Blink/Makefile;
